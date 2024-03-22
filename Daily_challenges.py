@@ -16,7 +16,6 @@
 # 
 # ======README======
 
-# 导入所需的库
 import threading
 import os
 import time
@@ -29,20 +28,20 @@ except ImportError:  # 如果没有安装pyautogui，则自动安装
     import pyautogui
 import pygetwindow as gw
 
-# 定义计数变量
-round_count = 0 # 起始值为0
-# 定义需要完成的局数
+# 定义已成局数变量
+round_count = 0 
+# 需要完成的局数目标
 target_rounds = 6
 
 # ======适配全比例、全分辨率屏幕======
-width, height = pyautogui.size()    # 获取当前屏幕分辨率
+width, height = pyautogui.size()      # 获取当前屏幕分辨率
 # print("屏幕分辨率为：{}x{}".format(width, height))
-screen_gain = width/3840            # 计算放大比例
+screen_gain = width / 3840            # 计算放大比例
 width_offset, height_offset = 0, 0
-if width/height < 16/9:             # 屏幕为16:9标准比例
-    height_offset = int((height-width/16*9)/2)
-elif width/height > 16/9:           # 屏幕为带鱼屏这种宽比例
-    width_offset = int((width-height/9*16)/2)
+if width/height < 16 / 9:             # 屏幕为16:10这种窄比例
+    height_offset = int((height - width / 16 * 9) / 2)
+elif width/height > 16 / 9:           # 屏幕为带鱼屏这种宽比例
+    width_offset = int((width - height / 9 * 16) / 2)
 
 # ======计算偏移量======
 def add_offset(offset, gain):
@@ -69,9 +68,11 @@ def is_window_active(title):
     except:
         return False
 
+
 # ======跳过夺冠动画并计数======
 def func1():
     global round_count
+
     # 录入原始x1, y1, rgb1, x2, y2, rgb2
     x1 = [3438]
     y1 = [2054]
@@ -84,6 +85,7 @@ def func1():
     y1_offset = calc_y_offset(y1)
     x2_offset = calc_x_offset(x2)
     y2_offset = calc_y_offset(y2)
+
     while True:
         if is_window_active('FallGuys_client'):
             if pyautogui.pixelMatchesColor(x1_offset[0], y1_offset[0], rgb1[0], tolerance=2) and pyautogui.pixelMatchesColor(x2_offset[0], y2_offset[0], rgb2[0], tolerance=2):  # 跳过胜利动画
@@ -100,6 +102,7 @@ def func1():
 # ======自动开始======
 def func2():
     start_time = time.time()
+
     # 录入原始x1, y1, rgb1, x2, y2, rgb2
     x1 = [2760, 3300, 3100, 1560, 3160, 1050, 2650, 50]
     y1 = [1800, 1800, 1800, 800, 660, 100, 660, 90]
@@ -112,6 +115,7 @@ def func2():
     y1_offset = calc_y_offset(y1)
     x2_offset = calc_x_offset(x2)
     y2_offset = calc_y_offset(y2)
+
     while True:
         if is_window_active('FallGuys_client'):
             if(
@@ -150,6 +154,7 @@ def func3():
     y1_offset = calc_y_offset(y1)
     x2_offset = calc_x_offset(x2)
     y2_offset = calc_y_offset(y2)
+
     while True:
         if is_window_active('FallGuys_client'):
             if pyautogui.pixelMatchesColor(x1_offset[0], y1_offset[0], rgb1[0], tolerance=2) and pyautogui.pixelMatchesColor(x2_offset[0], y2_offset[0], rgb2[0], tolerance=2): # 检测到未输入房间代码
@@ -158,8 +163,8 @@ def func3():
                 time.sleep(1)
                 pyautogui.press('alt')
                 time.sleep(1)
-                # pyautogui.write('253774198791')
-                pyautogui.write('549821568727') # 停用我的刷任务关卡
+                # pyautogui.write('253774198791') # 秒通关地图
+                pyautogui.write('549821568727') # 我的刷任务关卡
                 time.sleep(1)
                 pyautogui.click(x=x1_offset[2], y=y1_offset[2]) # 点击开始
                 time.sleep(1)
@@ -176,14 +181,10 @@ def func4():
     x1 = [1994]
     y1 = [1020]
     rgb1 = [(253, 112, 88)]
-    x2 = []
-    y2 = []
-    rgb2 = []
     # 变化坐标
     x1_offset = calc_x_offset(x1)
     y1_offset = calc_y_offset(y1)
-    x2_offset = calc_x_offset(x2)
-    y2_offset = calc_y_offset(y2)
+
     while True:
         if is_window_active('FallGuys_client'):
             if pyautogui.pixelMatchesColor(x1_offset[0], y1_offset[0], rgb1[0], tolerance=2):

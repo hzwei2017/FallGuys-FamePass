@@ -28,14 +28,14 @@ except ImportError:  # 如果没有安装pyautogui，则自动安装
 import pygetwindow as gw
 
 # ======适配全比例、全分辨率屏幕======
-width, height = pyautogui.size()    # 获取当前屏幕分辨率
+width, height = pyautogui.size()      # 获取当前屏幕分辨率
 # print("屏幕分辨率为：{}x{}".format(width, height))
-screen_gain = width/3840            # 计算放大比例
+screen_gain = width / 3840            # 计算放大比例
 width_offset, height_offset = 0, 0
-if width/height < 16/9:             # 屏幕为16:9标准比例
-    height_offset = int((height-width/16*9)/2)
-elif width/height > 16/9:           # 屏幕为带鱼屏这种宽比例
-    width_offset = int((width-height/9*16)/2)
+if width/height < 16 / 9:             # 屏幕为16:10这种窄比例
+    height_offset = int((height - width / 16 * 9) / 2)
+elif width/height > 16 / 9:           # 屏幕为带鱼屏这种宽比例
+    width_offset = int((width - height / 9 * 16) / 2)
 
 # ======计算偏移量======
 def add_offset(offset, gain):
@@ -62,6 +62,7 @@ def is_window_active(title):
     except:
         return False
 
+
 # ======防挂机掉线======
 def func1():
     # 录入原始x1, y1, rgb1, x2, y2, rgb2
@@ -76,6 +77,7 @@ def func1():
     y1_offset = calc_y_offset(y1)
     x2_offset = calc_x_offset(x2)
     y2_offset = calc_y_offset(y2)
+
     while True:
         if is_window_active('FallGuys_client'):
             if pyautogui.pixelMatchesColor(x1_offset[0], y1_offset[0], rgb1[0], tolerance=2) and pyautogui.pixelMatchesColor(x2_offset[0], y2_offset[0], rgb2[0], tolerance=2) \
@@ -93,15 +95,24 @@ def func2():
     # 录入原始x1, y1, rgb1, x2, y2, rgb2
     x1 = [40, 90, 70, 1610, 1040, 1000, 2160, 180, 1000, 1840, 110]
     y1 = [80, 100, 150, 1200, 100, 790, 870, 74, 780, 800, 760]
-    rgb1 = [(254, 106, 0), (36, 29, 53), (34, 34, 38), (188, 0, 130), (255, 208, 68), (38, 198, 236), (255, 255, 255), (192, 157, 62), (38, 198, 236), (255, 255, 255), (189, 188, 189)]
+    rgb1 = [
+        (254, 106, 0), (36, 29, 53), (34, 34, 38), (188, 0, 130), 
+        (255, 208, 68), (38, 198, 236), (255, 255, 255), (192, 157, 62), 
+        (38, 198, 236), (255, 255, 255), (189, 188, 189)
+    ]
     x2 = [3600, 1000, 3400, 1810, 3100, 2130, 3000, 2400, 2130, 2480, 3580]
     y2 = [2070, 800, 2150, 830, 1980, 900, 1300, 1200, 860, 1060, 2080]
-    rgb2 = [(49, 49, 49), (50, 201, 235), (28, 28, 28), (34, 35, 38), (48, 194, 227), (255, 255, 255), (42, 176, 209), (42, 176, 209), (255, 255, 255), (42, 176, 209), (49, 49, 49)]
+    rgb2 = [
+        (49, 49, 49), (50, 201, 235), (28, 28, 28), (34, 35, 38), 
+        (48, 194, 227), (255, 255, 255), (42, 176, 209), (42, 176, 209), 
+        (255, 255, 255), (42, 176, 209), (49, 49, 49)
+    ]
     # 变化坐标
     x1_offset = calc_x_offset(x1)
     y1_offset = calc_y_offset(y1)
     x2_offset = calc_x_offset(x2)
     y2_offset = calc_y_offset(y2)
+
     while True:
         if is_window_active('FallGuys_client'):
             if(
@@ -137,6 +148,7 @@ def func3():
     y1_offset = calc_y_offset(y1)
     x2_offset = calc_x_offset(x2)
     y2_offset = calc_y_offset(y2)
+
     while True:
         if is_window_active('FallGuys_client'):
             if pyautogui.pixelMatchesColor(x1_offset[0], y1_offset[0], rgb1[0], tolerance=2) and pyautogui.pixelMatchesColor(x2_offset[0], y2_offset[0], rgb2[0], tolerance=2): # 查看ID
@@ -149,7 +161,8 @@ def func3():
 
 # ======防止长期卡在坠落页面======
 def func4():
-    statement = 0
+    statement = 0 # 定义匹配时长计数变量
+
     # 录入原始x1, y1, rgb1, x2, y2, rgb2
     x1 = [100]
     y1 = [2070]
@@ -162,6 +175,7 @@ def func4():
     y1_offset = calc_y_offset(y1)
     x2_offset = calc_x_offset(x2)
     y2_offset = calc_y_offset(y2)
+
     while True:
         if is_window_active('FallGuys_client'):
             if pyautogui.pixelMatchesColor(x1_offset[0], y1_offset[0], rgb1[0], tolerance=2) and pyautogui.pixelMatchesColor(x2_offset[0], y2_offset[0], rgb2[0], tolerance=2): # 检测坠落页面
@@ -193,11 +207,11 @@ def func5():
     y1_offset = calc_y_offset(y1)
     x2_offset = calc_x_offset(x2)
     y2_offset = calc_y_offset(y2)
+
     while True:
         if is_window_active('FallGuys_client'):
             if(
-            pyautogui.pixelMatchesColor(x1_offset[0], y1_offset[0], rgb1[0], tolerance=2) and pyautogui.pixelMatchesColor(x2_offset[0], y2_offset[0], rgb2[0], tolerance=2)       # 启动广告
-            # or pyautogui.pixelMatchesColor(x1_offset[1], y1_offset[1], rgb1[1], tolerance=2) and pyautogui.pixelMatchesColor(x2_offset[1], y2_offset[1], rgb2[1], tolerance=2)    # 无
+            pyautogui.pixelMatchesColor(x1_offset[0], y1_offset[0], rgb1[0], tolerance=2) and pyautogui.pixelMatchesColor(x2_offset[0], y2_offset[0], rgb2[0], tolerance=2) # 启动广告
                 ):
                 pyautogui.press('esc')
             else:
@@ -219,6 +233,7 @@ def func6():
     y1_offset = calc_y_offset(y1)
     x2_offset = calc_x_offset(x2)
     y2_offset = calc_y_offset(y2)
+
     while True:
         if is_window_active('FallGuys_client'):
             if(
